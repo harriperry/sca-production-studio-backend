@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "Backend API for SCA Production Studio",
   "type": "module",
-  "main": "handler.js",
-  "scripts": {
-    "dev": "node handler.js",
-    "test": "node handler.js"
-  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.0"
   },
