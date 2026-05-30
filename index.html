@@ -3,1253 +3,773 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCA Production Studio — Complete</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>SCA Production Studio</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: #e2e8f0;
             min-height: 100vh;
-            overflow-x: hidden;
+            padding: 20px;
         }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 24px;
-        }
-
+        .container { max-width: 1200px; margin: 0 auto; }
         .header {
-            margin-bottom: 32px;
+            margin-bottom: 30px;
+            text-align: center;
         }
-
-        .header-top {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 8px;
-        }
-
-        .logo-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #22c55e 0%, #059669 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
         h1 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #ffffff;
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #fff;
         }
-
         .subtitle {
             color: #cbd5e1;
-            font-size: 18px;
-            margin-top: 8px;
+            font-size: 16px;
+            margin-bottom: 15px;
         }
-
-        .badges {
-            display: flex;
-            gap: 8px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-
         .badge {
-            padding: 6px 12px;
-            border-radius: 9999px;
-            font-size: 12px;
-            border: 1px solid;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .badge.green {
-            background-color: rgba(34, 197, 94, 0.1);
-            border-color: rgba(34, 197, 94, 0.5);
-            color: #86efac;
-        }
-
-        .badge.blue {
-            background-color: rgba(59, 130, 246, 0.1);
-            border-color: rgba(59, 130, 246, 0.5);
-            color: #93c5fd;
-        }
-
-        .badge.purple {
-            background-color: rgba(168, 85, 247, 0.1);
-            border-color: rgba(168, 85, 247, 0.5);
-            color: #d8b4fe;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 32px;
-            border-bottom: 1px solid #475569;
-            padding-bottom: 16px;
-        }
-
-        .tab-button {
-            padding: 12px 24px;
-            background: none;
-            border: none;
-            color: #94a3b8;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-bottom: 2px solid transparent;
-            margin-bottom: -16px;
-            padding-bottom: 28px;
-        }
-
-        .tab-button:hover {
-            color: #cbd5e1;
-        }
-
-        .tab-button.active {
-            color: #22c55e;
-            border-bottom-color: #22c55e;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 32px;
-            margin-bottom: 32px;
-        }
-
-        @media (max-width: 1200px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .panel {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid #475569;
-            border-radius: 8px;
-            padding: 24px;
-        }
-
-        .panel h2 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: #ffffff;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: #cbd5e1;
-            margin-bottom: 8px;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 10px 12px;
-            background-color: #334155;
-            border: 1px solid #475569;
-            border-radius: 6px;
-            color: #ffffff;
-            font-size: 14px;
-            font-family: inherit;
-        }
-
-        input::placeholder, textarea::placeholder {
-            color: #94a3b8;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #22c55e;
-            box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .sticky-input {
-            position: sticky;
-            top: 24px;
-        }
-
-        .btn-generate {
-            width: 100%;
-            padding: 12px 16px;
-            background: linear-gradient(135deg, #22c55e 0%, #059669 100%);
-            color: white;
-            font-weight: 700;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 24px;
-            transition: all 0.2s;
-        }
-
-        .btn-generate:hover:not(:disabled) {
-            background: linear-gradient(135deg, #16a34a 0%, #047857 100%);
-        }
-
-        .btn-generate:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .alert {
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-
-        .alert.error {
-            background-color: rgba(220, 38, 38, 0.1);
-            border: 1px solid rgba(220, 38, 38, 0.5);
-            color: #fca5a5;
-        }
-
-        .alert.success {
-            background-color: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.5);
-            color: #86efac;
-        }
-
-        .alert-icon {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .alert-content h3 {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .alert-content p {
-            font-size: 14px;
-        }
-
-        .output-header {
-            display: flex;
-            align-items: center;
-            justify-between;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .output-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .btn-action {
-            padding: 8px 16px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-
-        .btn-action.copy {
-            background-color: #475569;
-            color: #cbd5e1;
-        }
-
-        .btn-action.copy:hover {
-            background-color: #64748b;
-        }
-
-        .btn-action.download {
-            background-color: #2563eb;
-            color: white;
-        }
-
-        .btn-action.download:hover {
-            background-color: #1d4ed8;
-        }
-
-        .btn-action.canva {
-            background-color: #8b5cf6;
-            color: white;
-        }
-
-        .btn-action.canva:hover {
-            background-color: #7c3aed;
-        }
-
-        .output-box {
-            background-color: rgba(15, 23, 42, 0.5);
-            border: 1px solid #475569;
-            border-radius: 8px;
-            padding: 24px;
-            max-height: 800px;
-            overflow-y: auto;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            color: #e2e8f0;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        .social-output {
-            background-color: rgba(15, 23, 42, 0.5);
-            border: 1px solid #475569;
-            border-radius: 8px;
-            padding: 24px;
-            max-height: auto;
-            overflow-y: auto;
-        }
-
-        .social-card {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid #64748b;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .social-card h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #22c55e;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .platform-label {
             display: inline-block;
             background: rgba(34, 197, 94, 0.2);
             border: 1px solid rgba(34, 197, 94, 0.5);
             color: #86efac;
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
-            font-weight: 600;
+            margin: 5px;
         }
-
-        .social-text {
-            background: rgba(15, 23, 42, 0.5);
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 12px 24px;
+            background: #334155;
+            border: none;
+            color: #cbd5e1;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            background: #22c55e;
+            color: white;
+        }
+        .tab-btn:hover {
+            background: #475569;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+        .panel {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .panel h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            color: #cbd5e1;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            background: #334155;
             border: 1px solid #475569;
             border-radius: 6px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 14px;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+        }
+        textarea { resize: vertical; min-height: 80px; }
+        .btn {
+            width: 100%;
             padding: 12px;
-            margin-bottom: 12px;
-            color: #e2e8f0;
-            line-height: 1.6;
-            min-height: 60px;
+            background: linear-gradient(135deg, #22c55e 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            margin-top: 20px;
+            transition: all 0.3s;
         }
-
-        .image-prompt-section {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #475569;
+        .btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #16a34a 0%, #047857 100%);
         }
-
-        .image-prompt-label {
-            font-size: 12px;
-            color: #94a3b8;
-            font-weight: 600;
-            margin-bottom: 8px;
-            text-transform: uppercase;
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
-
-        .image-prompt {
-            background: rgba(15, 23, 42, 0.7);
+        .output-panel {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 300px;
+        }
+        .output-box {
+            background: rgba(15, 23, 42, 0.8);
             border: 1px solid #334155;
             border-radius: 6px;
+            padding: 15px;
+            font-size: 13px;
+            line-height: 1.6;
+            max-height: 600px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Monaco', monospace;
+            color: #e2e8f0;
+        }
+        .empty {
+            text-align: center;
+            color: #64748b;
+            padding: 40px 20px;
+        }
+        .error {
+            background: rgba(220, 38, 38, 0.1);
+            border: 1px solid rgba(220, 38, 38, 0.5);
+            color: #fca5a5;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        .success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+            color: #86efac;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        .loading {
+            text-align: center;
+            color: #94a3b8;
+        }
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .btn-small {
+            padding: 8px 16px;
+            background: #475569;
+            color: #cbd5e1;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .btn-small:hover {
+            background: #64748b;
+        }
+        .btn-danger {
+            background: rgba(220, 38, 38, 0.6);
+            border: 1px solid rgba(220, 38, 38, 0.8);
+        }
+        .btn-danger:hover {
+            background: rgba(220, 38, 38, 0.8);
+        }
+        
+        /* Library Styles */
+        .library-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .library-count {
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+        .library-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 15px;
+        }
+        .library-item {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s;
+        }
+        .library-item:hover {
+            border-color: #22c55e;
+            background: rgba(30, 41, 59, 0.8);
+        }
+        .library-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+        .library-item-title {
+            font-weight: 700;
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 5px;
+            word-break: break-word;
+        }
+        .library-item-type {
+            display: inline-block;
+            padding: 4px 8px;
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+            color: #86efac;
+            font-size: 11px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .library-item-date {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+        .library-item-preview {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #334155;
+            border-radius: 4px;
             padding: 10px;
             font-size: 12px;
             color: #cbd5e1;
-            font-style: italic;
-            line-height: 1.5;
-            max-height: 100px;
+            max-height: 120px;
             overflow-y: auto;
+            margin-bottom: 10px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
-
-        .social-buttons {
+        .library-item-actions {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            margin-top: 12px;
         }
-
-        .btn-small {
+        .library-item-btn {
             padding: 6px 12px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
-        }
-
-        .btn-small.copy {
-            background-color: #475569;
+            background: #334155;
             color: #cbd5e1;
-        }
-
-        .btn-small.copy:hover {
-            background-color: #64748b;
-        }
-
-        .btn-small.canva {
-            background-color: #8b5cf6;
-            color: white;
-        }
-
-        .btn-small.canva:hover {
-            background-color: #7c3aed;
-        }
-
-        .empty-state {
-            background: rgba(30, 41, 59, 0.3);
-            border: 1px dashed #475569;
-            border-radius: 8px;
-            padding: 48px 24px;
-            text-align: center;
-        }
-
-        .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-
-        .empty-state h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #94a3b8;
-            margin-bottom: 8px;
-        }
-
-        .empty-state p {
-            color: #64748b;
-            font-size: 14px;
-        }
-
-        .footer {
-            border-top: 1px solid #475569;
-            padding-top: 32px;
-            text-align: center;
-            color: #64748b;
-            font-size: 14px;
-        }
-
-        .footer p {
-            margin-bottom: 8px;
-        }
-
-        .config-banner {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.5);
-            border-radius: 8px;
-            padding: 12px 16px;
-            margin-bottom: 24px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            font-size: 13px;
-            color: #fcd34d;
-        }
-
-        .config-banner.success {
-            background: rgba(34, 197, 94, 0.1);
-            border-color: rgba(34, 197, 94, 0.5);
-            color: #86efac;
-        }
-
-        .output-box::-webkit-scrollbar,
-        .image-prompt::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .output-box::-webkit-scrollbar-track,
-        .image-prompt::-webkit-scrollbar-track {
-            background: rgba(30, 41, 59, 0.5);
+            border: none;
             border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            flex: 1;
+            min-width: 60px;
         }
-
-        .output-box::-webkit-scrollbar-thumb,
-        .image-prompt::-webkit-scrollbar-thumb {
+        .library-item-btn:hover {
             background: #475569;
-            border-radius: 4px;
         }
-
-        .output-box::-webkit-scrollbar-thumb:hover,
-        .image-prompt::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
+        .library-item-btn.delete {
+            background: rgba(220, 38, 38, 0.3);
+            color: #fca5a5;
         }
-
-        .dimensions-badge {
-            display: inline-block;
-            background: rgba(59, 130, 246, 0.2);
-            border: 1px solid rgba(59, 130, 246, 0.5);
-            color: #93c5fd;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-left: 8px;
+        .library-item-btn.delete:hover {
+            background: rgba(220, 38, 38, 0.6);
         }
     </style>
 </head>
 <body>
-    <div id="root"></div>
-
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-
-        // ⚠️ IMPORTANT: Update this URL after deploying your backend
-        // Replace with your actual Vercel URL or backend server address
-        const BACKEND_URL = localStorage.getItem('sca_backend_url') || 'https://your-backend-url.vercel.app/api/handler';
-
-        function SCAProductionStudio() {
-            const [backendUrl, setBackendUrl] = useState(BACKEND_URL);
-            const [showUrlConfig, setShowUrlConfig] = useState(!BACKEND_URL.includes('https://your'));
-            const [activeTab, setActiveTab] = useState('production');
-
-            // Production Script State
-            const [prodFormData, setProdFormData] = useState({
-                title: '',
-                contentType: 'Field Report',
-                targetLength: '4 min',
-                correspondent: 'Eposi Ayuk (Southern Zone)',
-                keyMessage: '',
-                events: '',
-                platforms: 'YouTube',
-                urgency: 'Planned',
-            });
-
-            const [prodOutput, setProdOutput] = useState('');
-            const [prodLoading, setProdLoading] = useState(false);
-            const [prodError, setProdError] = useState('');
-            const [prodSuccess, setProdSuccess] = useState('');
-            const [prodCopied, setProdCopied] = useState(false);
-
-            // Social Brief State
-            const [socialFormData, setSocialFormData] = useState({
-                topic: '',
-                message: '',
-                tone: 'Dignified & Resolute',
-                callToAction: '',
-            });
-
-            const [socialOutput, setSocialOutput] = useState('');
-            const [socialLoading, setSocialLoading] = useState(false);
-            const [socialError, setSocialError] = useState('');
-            const [socialSuccess, setSocialSuccess] = useState('');
-
-            // Handle backend URL configuration
-            const handleSaveBackendUrl = () => {
-                if (!backendUrl.includes('https://')) {
-                    alert('Please enter a valid HTTPS URL (e.g., https://your-app.vercel.app/api/handler)');
-                    return;
-                }
-                localStorage.setItem('sca_backend_url', backendUrl);
-                setShowUrlConfig(false);
-                alert('✓ Backend URL saved! You can now use the app.');
-            };
-
-            // Production Script Handlers
-            const handleProdInputChange = (e) => {
-                const { name, value } = e.target;
-                setProdFormData(prev => ({ ...prev, [name]: value }));
-            };
-
-            const generateProdScript = async () => {
-                if (backendUrl.includes('https://your')) {
-                    setProdError('Please configure your backend URL first (see top of page)');
-                    return;
-                }
-
-                setProdError('');
-                setProdSuccess('');
-                setProdLoading(true);
-
-                const systemPrompt = `You are the editorial and content production director for the Southern Cameroons Alliance (SCA). 
-
-Your task: Take the user's story prompt and generate a COMPLETE, PRODUCTION-READY SCRIPT following the SCA Production Template.
-
-CRITICAL RULES:
-1. Never use "Ambazonia" — use "Southern Cameroons" only
-2. Refer to armed forces as "Freedom Fighters" or "restorationists" (NOT "separatists" or "secessionists")
-3. All factual claims must be verifiable or attributed
-4. Separate documented events from contested claims
-5. Use dignified, resolute, hopeful tone — never melodramatic or inflammatory
-6. Correspondent voices:
-   - EPOSI AYUK (Southern Zone, 28F): Warm, melodic South West coastal accent. Bright, empathetic, human-centred. "From the Southern Zone, this is Eposi Ayuk."
-   - NEBA COLLINS (Savannah Zone, 35M): Measured, rhythmic North West accent. Calm, analytical, carries gravitas. "Reporting from the Savannah Zone, Neba Collins."
-
-STRUCTURE YOUR OUTPUT EXACTLY AS FOLLOWS:
-
-# [TITLE] — PRODUCTION SCRIPT
-**Type:** [Content Type] | **Duration:** [Target Length] | **Platform(s):** [Platforms]
-
-## STORY SYNOPSIS
-[2–3 sentences: what happens and why it matters]
-
-## DIALOGUE SCRIPT
-[Full narration with timecodes, character names, delivery notes in italics, pauses marked as (…), emphasis as **bold**, visual notes in [brackets].]
-
-**0:00 – [timecode] · [SECTION TITLE]**
-
-CHARACTER
-*delivery note*
-[dialogue]
-
-## SHOT LIST
-| # | In–Out | Scene Description | Motion/Framing | Model/Source | Notes |
-|---|--------|-------------------|-----------------|--------------|-------|
-| 1 | [timecodes] | [description] | [motion] | [model] | [notes] |
-
-## SCENE DESCRIPTIONS
-[Detailed cinematic direction for each major shot]
-
-## UNIVERSAL T2I PROMPT
-[Base prompt for all generated visuals]
-
-## I2V MOTION SPECS
-[Per-shot specs]
-
-## TTS VOICE SPEC
-[Character voice parameters]
-
-## KINETIC & MOTION PROMPTS
-[Character and B-roll movement]
-
-## CONTINUITY PROMPTS
-[Scene-to-scene transitions]
-
-## UNIQUE IMAGE PROMPTS (Social Media)
-**Facebook (1:1):** [specific image prompt]
-**Instagram (9:16):** [specific image prompt]
-**YouTube (16:9):** [specific image prompt]
-
-## SOURCING & ACCURACY AUDIT
-[Checklist and verification]
-
-## PRODUCTION CHECKLIST
-[Pre-publication checklist]
-
-## YOUTUBE DESCRIPTION
-[Boilerplate with sources]
-
-Generate this output for the user's story prompt. Be thorough, detailed, and exact to the SCA Production Template structure.`;
-
-                const userMessage = `STORY PROMPT:
-Title: ${prodFormData.title}
-Content Type: ${prodFormData.contentType}
-Target Duration: ${prodFormData.targetLength}
-Primary Correspondent: ${prodFormData.correspondent}
-Key Message: ${prodFormData.keyMessage}
-Events/Claims to Cover: ${prodFormData.events}
-Target Platforms: ${prodFormData.platforms}
-Urgency/Timing: ${prodFormData.urgency}
-
-Generate the complete production script following the SCA Production Template structure.`;
-
-                try {
-                    const response = await fetch(backendUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            type: 'production',
-                            systemPrompt,
-                            userMessage,
-                        }),
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.error || 'API request failed');
-                    }
-
-                    const data = await response.json();
-                    const generatedText = data.content || '';
-
-                    setProdOutput(generatedText);
-                    setProdSuccess('✓ Production script generated successfully!');
-                    setProdLoading(false);
-                } catch (err) {
-                    setProdError(`Error generating script: ${err.message}`);
-                    setProdLoading(false);
-                }
-            };
-
-            const copyProdToClipboard = () => {
-                navigator.clipboard.writeText(prodOutput);
-                setProdCopied(true);
-                setTimeout(() => setProdCopied(false), 2000);
-            };
-
-            const downloadProdAsMarkdown = () => {
-                const element = document.createElement('a');
-                const file = new Blob([prodOutput], { type: 'text/markdown' });
-                element.href = URL.createObjectURL(file);
-                element.download = `SCA_${prodFormData.title.replace(/\s+/g, '_')}_Production.md`;
-                document.body.appendChild(element);
-                element.click();
-                document.body.removeChild(element);
-            };
-
-            // Social Brief Handlers
-            const handleSocialInputChange = (e) => {
-                const { name, value } = e.target;
-                setSocialFormData(prev => ({ ...prev, [name]: value }));
-            };
-
-            const generateSocialBrief = async () => {
-                if (backendUrl.includes('https://your')) {
-                    setSocialError('Please configure your backend URL first (see top of page)');
-                    return;
-                }
-
-                setSocialError('');
-                setSocialSuccess('');
-                setSocialLoading(true);
-
-                const systemPrompt = `You are the social media content creator for the Southern Cameroons Alliance (SCA).
-
-Your task: Create a COMPLETE SOCIAL MEDIA BRIEF with platform-specific posts and custom image prompts.
-
-CRITICAL RULES:
-1. Never use "Ambazonia" — use "Southern Cameroons" only
-2. Reading level: a fifth grader can understand it
-3. Short, punchy sentences. One clear idea per post.
-4. Each platform has its own character:
-   - Facebook (1:1 image): 2-4 sentences, conversational, good for context
-   - Instagram (9:16 image): Very short hook, visual does the heavy lifting, 5-15 hashtags
-   - YouTube (16:9 image): Clear & searchable, includes call to action
-
-OUTPUT FORMAT:
-
-# SOCIAL BRIEF: [TOPIC]
-
-## FACEBOOK POST
-**Image Format:** 1:1 (square)
-**Post Text:**
-[2-4 short sentences, main point first]
-
-**Image Prompt:**
-[Specific, detailed prompt for this platform's 1:1 dimensions]
-
----
-
-## INSTAGRAM POST
-**Image Format:** 9:16 (vertical/Stories)
-**Post Text:**
-[Very short hook, 1-2 sentences max. Visual carries it.]
-[Hashtags: #SouthernCameroons #FreedomFighters #Justice etc - 5-15 total]
-
-**Image Prompt:**
-[Specific prompt for 9:16 vertical format]
-
----
-
-## YOUTUBE POST
-**Image Format:** 16:9 (horizontal)
-**Post Text:**
-[Clear description of what's being shared, 2-3 sentences]
-[Call to action: "Watch the full report" / "Subscribe for updates" / etc]
-
-**Image Prompt:**
-[Specific prompt for 16:9 landscape format]
-
----
-
-## SOURCING NOTES
-[Any claims that need verification]
-
-Generate this output for the user's brief request. Make each post platform-optimized and image prompt unique to that platform's dimensions and context.`;
-
-                const userMessage = `SOCIAL BRIEF REQUEST:
-Topic/Theme: ${socialFormData.topic}
-Core Message: ${socialFormData.message}
-Tone: ${socialFormData.tone}
-Call to Action: ${socialFormData.callToAction}
-
-Generate complete platform-specific social media posts (Facebook, Instagram, YouTube) with custom image prompts for each platform.`;
-
-                try {
-                    const response = await fetch(backendUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            type: 'social',
-                            systemPrompt,
-                            userMessage,
-                        }),
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.error || 'API request failed');
-                    }
-
-                    const data = await response.json();
-                    const generatedText = data.content || '';
-
-                    setSocialOutput(generatedText);
-                    setSocialSuccess('✓ Social briefs generated successfully!');
-                    setSocialLoading(false);
-                } catch (err) {
-                    setSocialError(`Error generating briefs: ${err.message}`);
-                    setSocialLoading(false);
-                }
-            };
-
-            const copySocialText = (text) => {
-                navigator.clipboard.writeText(text);
-            };
-
-            return (
-                <div className="container">
-                    {/* Backend URL Configuration Banner */}
-                    {!backendUrl.includes('https://') || backendUrl.includes('https://your') ? (
-                        <div className="config-banner">
-                            ⚙️ <strong>Backend URL not configured.</strong> See instructions below or click to configure.
-                            <button 
-                                onClick={() => setShowUrlConfig(!showUrlConfig)}
-                                style={{ marginLeft: 'auto', padding: '4px 12px', background: 'rgba(255,255,255,0.2)', border: '1px solid #fcd34d', color: '#fcd34d', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}
-                            >
-                                {showUrlConfig ? 'Close' : 'Configure'}
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="config-banner success">
-                            ✓ Backend connected successfully!
-                        </div>
-                    )}
-
-                    {showUrlConfig && (
-                        <div className="panel" style={{ marginBottom: '24px' }}>
-                            <h3 style={{ marginBottom: '16px', color: '#fcd34d' }}>⚙️ Configure Backend URL</h3>
-                            <p style={{ color: '#94a3b8', marginBottom: '12px', fontSize: '13px' }}>
-                                Enter your backend server URL (get this after deploying the backend to Vercel):
-                            </p>
-                            <div style={{ display: 'flex', gap: '8px' }}>
-                                <input
-                                    type="text"
-                                    value={backendUrl}
-                                    onChange={(e) => setBackendUrl(e.target.value)}
-                                    placeholder="https://your-app.vercel.app/api/handler"
-                                    style={{ flex: 1 }}
-                                />
-                                <button 
-                                    onClick={handleSaveBackendUrl}
-                                    style={{ padding: '10px 20px', background: '#22c55e', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
-                                >
-                                    Save URL
-                                </button>
-                            </div>
-                        </div>
-                    )}
-
-                    <div className="header">
-                        <div className="header-top">
-                            <div className="logo-circle">🎬</div>
-                            <h1>SCA Production Studio</h1>
-                        </div>
-                        <p className="subtitle">Generate production scripts & social media content</p>
-                        <div className="badges">
-                            <div className="badge green">✓ Backend-powered</div>
-                            <div className="badge blue">✓ Canva-linked design templates</div>
-                            <div className="badge purple">✓ Multi-platform ready</div>
-                        </div>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 SCA Production Studio</h1>
+            <p class="subtitle">Generate, store & manage your content</p>
+            <div>
+                <span class="badge">✓ GitHub Pages Frontend</span>
+                <span class="badge">✓ Vercel Backend</span>
+                <span class="badge">✓ Local Storage Library</span>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('production')">🎬 Production Scripts</button>
+            <button class="tab-btn" onclick="switchTab('social')">📱 Social Media</button>
+            <button class="tab-btn" onclick="switchTab('library')">📚 Library</button>
+        </div>
+
+        <!-- PRODUCTION TAB -->
+        <div id="production" class="tab-content active">
+            <div class="grid">
+                <div class="panel">
+                    <h2>Story Prompt</h2>
+                    <div class="form-group">
+                        <label>Story Title</label>
+                        <input type="text" id="prodTitle" placeholder="e.g., Healthcare Under Siege">
                     </div>
-
-                    {/* Tabs */}
-                    <div className="tabs">
-                        <button
-                            className={`tab-button ${activeTab === 'production' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('production')}
-                        >
-                            🎬 Production Scripts
-                        </button>
-                        <button
-                            className={`tab-button ${activeTab === 'social' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('social')}
-                        >
-                            📱 Social Media Briefs
-                        </button>
+                    <div class="form-group">
+                        <label>Content Type</label>
+                        <select id="prodType">
+                            <option>Field Report</option>
+                            <option>Documentary Snippet</option>
+                            <option>Breaking News</option>
+                            <option>Mini-Documentary</option>
+                        </select>
                     </div>
-
-                    {/* PRODUCTION TAB */}
-                    <div className={`tab-content ${activeTab === 'production' ? 'active' : ''}`}>
-                        <div className="main-grid">
-                            {/* Input Panel */}
-                            <div className="panel sticky-input">
-                                <h2>Story Prompt</h2>
-
-                                <div className="form-group">
-                                    <label>Story Title / Theme</label>
-                                    <input
-                                        type="text"
-                                        name="title"
-                                        value={prodFormData.title}
-                                        onChange={handleProdInputChange}
-                                        placeholder="e.g., Healthcare Under Siege in Kumba"
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Content Type</label>
-                                    <select
-                                        name="contentType"
-                                        value={prodFormData.contentType}
-                                        onChange={handleProdInputChange}
-                                    >
-                                        <option>Field Report</option>
-                                        <option>Documentary Snippet</option>
-                                        <option>Social Brief</option>
-                                        <option>Mini-Documentary</option>
-                                        <option>Breaking News</option>
-                                    </select>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Target Duration</label>
-                                    <select
-                                        name="targetLength"
-                                        value={prodFormData.targetLength}
-                                        onChange={handleProdInputChange}
-                                    >
-                                        <option>30-60 seconds</option>
-                                        <option>2 minutes</option>
-                                        <option>4 minutes</option>
-                                        <option>5 minutes</option>
-                                        <option>10 minutes</option>
-                                    </select>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Primary Correspondent</label>
-                                    <select
-                                        name="correspondent"
-                                        value={prodFormData.correspondent}
-                                        onChange={handleProdInputChange}
-                                    >
-                                        <option>Eposi Ayuk (Southern Zone)</option>
-                                        <option>Neba Collins (Savannah Zone)</option>
-                                        <option>Dual Correspondents</option>
-                                        <option>Documentary Narrator</option>
-                                    </select>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Key Message (What's the takeaway?)</label>
-                                    <textarea
-                                        name="keyMessage"
-                                        value={prodFormData.keyMessage}
-                                        onChange={handleProdInputChange}
-                                        placeholder="e.g., Healthcare is failing in conflict zones; communities need urgent support"
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Events/Claims to Cover (comma-separated)</label>
-                                    <textarea
-                                        name="events"
-                                        value={prodFormData.events}
-                                        onChange={handleProdInputChange}
-                                        placeholder="e.g., Hospital closures, patient interviews, displacement impact"
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Target Platforms</label>
-                                    <select
-                                        name="platforms"
-                                        value={prodFormData.platforms}
-                                        onChange={handleProdInputChange}
-                                    >
-                                        <option>YouTube</option>
-                                        <option>Facebook</option>
-                                        <option>Instagram</option>
-                                        <option>All Platforms</option>
-                                    </select>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Urgency / Timing</label>
-                                    <select
-                                        name="urgency"
-                                        value={prodFormData.urgency}
-                                        onChange={handleProdInputChange}
-                                    >
-                                        <option>Breaking News</option>
-                                        <option>Urgent</option>
-                                        <option>Planned</option>
-                                        <option>Series Installment</option>
-                                    </select>
-                                </div>
-
-                                <button
-                                    onClick={generateProdScript}
-                                    disabled={prodLoading || !prodFormData.title || !prodFormData.keyMessage}
-                                    className="btn-generate"
-                                >
-                                    {prodLoading ? (
-                                        <>
-                                            <span className="spinner"></span>
-                                            Generating...
-                                        </>
-                                    ) : (
-                                        <>🎬 Generate Script</>
-                                    )}
-                                </button>
-                            </div>
-
-                            {/* Output Panel */}
-                            <div>
-                                {prodError && (
-                                    <div className="alert error">
-                                        <div className="alert-icon">⚠️</div>
-                                        <div className="alert-content">
-                                            <h3>Error</h3>
-                                            <p>{prodError}</p>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {prodSuccess && (
-                                    <div className="alert success">
-                                        <div className="alert-icon">✓</div>
-                                        <div className="alert-content">
-                                            <h3>Success</h3>
-                                            <p>{prodSuccess}</p>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {prodOutput ? (
-                                    <div className="panel">
-                                        <div className="output-header">
-                                            <h2>Production Script</h2>
-                                            <div className="output-buttons">
-                                                <button
-                                                    onClick={copyProdToClipboard}
-                                                    className="btn-action copy"
-                                                    title="Copy to clipboard"
-                                                >
-                                                    {prodCopied ? '✓ Copied!' : '📋 Copy'}
-                                                </button>
-                                                <button
-                                                    onClick={downloadProdAsMarkdown}
-                                                    className="btn-action download"
-                                                >
-                                                    ⬇️ Download
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div className="output-box">{prodOutput}</div>
-                                    </div>
-                                ) : (
-                                    <div className="panel">
-                                        <div className="empty-state">
-                                            <div className="empty-state-icon">📝</div>
-                                            <h3>Your production script will appear here</h3>
-                                            <p>Fill in your story details on the left and click "Generate Script" to create a complete, sourced production document.</p>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label>Duration</label>
+                        <select id="prodDuration">
+                            <option>2 minutes</option>
+                            <option>4 minutes</option>
+                            <option>5 minutes</option>
+                        </select>
                     </div>
-
-                    {/* SOCIAL TAB */}
-                    <div className={`tab-content ${activeTab === 'social' ? 'active' : ''}`}>
-                        <div className="main-grid">
-                            {/* Input Panel */}
-                            <div className="panel sticky-input">
-                                <h2>Social Brief</h2>
-
-                                <div className="form-group">
-                                    <label>Topic / Theme</label>
-                                    <input
-                                        type="text"
-                                        name="topic"
-                                        value={socialFormData.topic}
-                                        onChange={handleSocialInputChange}
-                                        placeholder="e.g., Schools Closed in Bamenda"
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Core Message</label>
-                                    <textarea
-                                        name="message"
-                                        value={socialFormData.message}
-                                        onChange={handleSocialInputChange}
-                                        placeholder="What's the main point? Keep it simple and clear."
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Tone</label>
-                                    <select
-                                        name="tone"
-                                        value={socialFormData.tone}
-                                        onChange={handleSocialInputChange}
-                                    >
-                                        <option>Dignified & Resolute</option>
-                                        <option>Urgent & Call-to-Action</option>
-                                        <option>Hopeful & Resilient</option>
-                                        <option>Factual & Informative</option>
-                                        <option>Community & Solidarity</option>
-                                    </select>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Call to Action (optional)</label>
-                                    <input
-                                        type="text"
-                                        name="callToAction"
-                                        value={socialFormData.callToAction}
-                                        onChange={handleSocialInputChange}
-                                        placeholder="e.g., 'Share this story' or 'Watch the full report'"
-                                    />
-                                </div>
-
-                                <button
-                                    onClick={generateSocialBrief}
-                                    disabled={socialLoading || !socialFormData.topic || !socialFormData.message}
-                                    className="btn-generate"
-                                >
-                                    {socialLoading ? (
-                                        <>
-                                            <span className="spinner"></span>
-                                            Generating...
-                                        </>
-                                    ) : (
-                                        <>📱 Generate Briefs</>
-                                    )}
-                                </button>
-                            </div>
-
-                            {/* Output Panel */}
-                            <div>
-                                {socialError && (
-                                    <div className="alert error">
-                                        <div className="alert-icon">⚠️</div>
-                                        <div className="alert-content">
-                                            <h3>Error</h3>
-                                            <p>{socialError}</p>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {socialSuccess && (
-                                    <div className="alert success">
-                                        <div className="alert-icon">✓</div>
-                                        <div className="alert-content">
-                                            <h3>Success</h3>
-                                            <p>{socialSuccess}</p>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {socialOutput ? (
-                                    <div className="panel">
-                                        <h2>Social Media Posts</h2>
-                                        <div className="social-output">
-                                            <div className="output-box">{socialOutput}</div>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className="panel">
-                                        <div className="empty-state">
-                                            <div className="empty-state-icon">📱</div>
-                                            <h3>Your social media posts will appear here</h3>
-                                            <p>Fill in your brief details on the left and click "Generate Briefs" to create platform-specific posts with custom image prompts and Canva links.</p>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label>Correspondent</label>
+                        <select id="prodCorrespondent">
+                            <option>Eposi Ayuk (Southern Zone)</option>
+                            <option>Neba Collins (Savannah Zone)</option>
+                        </select>
                     </div>
+                    <div class="form-group">
+                        <label>Key Message</label>
+                        <textarea id="prodMessage" placeholder="What's the story about?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Events to Cover</label>
+                        <textarea id="prodEvents" placeholder="Key events or claims"></textarea>
+                    </div>
+                    <button class="btn" onclick="generateProduction()">🎬 Generate Script</button>
+                </div>
 
-                    {/* Footer */}
-                    <div className="footer">
-                        <p>SCA Production Studio v2.0 (Backend-Powered) — Editorial & Content Production Assistant</p>
-                        <p>Production Scripts • Social Media Briefs • Canva-Integrated Design Templates</p>
+                <div>
+                    <div id="prodError" class="error" style="display:none;"></div>
+                    <div id="prodSuccess" class="success" style="display:none;"></div>
+                    <div class="output-panel">
+                        <div id="prodOutput" class="empty">Your production script will appear here</div>
+                    </div>
+                    <div class="btn-group" id="prodButtons" style="display:none; margin-top: 15px;">
+                        <button class="btn-small" onclick="copyOutput('prodOutput')">📋 Copy</button>
+                        <button class="btn-small" onclick="downloadOutput('prodOutput', 'production_script.txt')">⬇️ Download</button>
+                        <button class="btn-small" onclick="saveToLibrary('production')">💾 Save to Library</button>
                     </div>
                 </div>
-            );
+            </div>
+        </div>
+
+        <!-- SOCIAL TAB -->
+        <div id="social" class="tab-content">
+            <div class="grid">
+                <div class="panel">
+                    <h2>Social Brief</h2>
+                    <div class="form-group">
+                        <label>Topic</label>
+                        <input type="text" id="socialTopic" placeholder="e.g., Schools Closed in Bamenda">
+                    </div>
+                    <div class="form-group">
+                        <label>Core Message</label>
+                        <textarea id="socialMessage" placeholder="Main point"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Tone</label>
+                        <select id="socialTone">
+                            <option>Dignified & Resolute</option>
+                            <option>Urgent & Call-to-Action</option>
+                            <option>Hopeful & Resilient</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Call to Action (optional)</label>
+                        <input type="text" id="socialCTA" placeholder="e.g., Share this story">
+                    </div>
+                    <button class="btn" onclick="generateSocial()">📱 Generate Briefs</button>
+                </div>
+
+                <div>
+                    <div id="socialError" class="error" style="display:none;"></div>
+                    <div id="socialSuccess" class="success" style="display:none;"></div>
+                    <div class="output-panel">
+                        <div id="socialOutput" class="empty">Your social posts will appear here</div>
+                    </div>
+                    <div class="btn-group" id="socialButtons" style="display:none; margin-top: 15px;">
+                        <button class="btn-small" onclick="copyOutput('socialOutput')">📋 Copy</button>
+                        <button class="btn-small" onclick="downloadOutput('socialOutput', 'social_briefs.txt')">⬇️ Download</button>
+                        <button class="btn-small" onclick="saveToLibrary('social')">💾 Save to Library</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LIBRARY TAB -->
+        <div id="library" class="tab-content">
+            <div class="panel">
+                <div class="library-header">
+                    <div>
+                        <h2 style="margin-bottom: 10px;">📚 Your Content Library</h2>
+                        <span class="library-count" id="libraryCount">No items saved yet</span>
+                    </div>
+                    <button class="btn-small btn-danger" onclick="clearLibrary()">🔄 Clear All</button>
+                </div>
+                
+                <div id="libraryItems" class="library-items">
+                    <div class="empty">Your saved scripts and posts will appear here. Use the "Save to Library" button after generating content.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // UPDATE THIS WITH YOUR VERCEL BACKEND URL
+        const BACKEND_URL = "https://sca-production-studio-backend.vercel.app/api/handler";
+        const STORAGE_KEY = "sca_library";
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tab).classList.add('active');
+            event.target.classList.add('active');
+            
+            if (tab === 'library') {
+                loadLibrary();
+            }
         }
 
-        ReactDOM.render(<SCAProductionStudio />, document.getElementById('root'));
+        async function generateProduction() {
+            const title = document.getElementById('prodTitle').value;
+            const type = document.getElementById('prodType').value;
+            const duration = document.getElementById('prodDuration').value;
+            const correspondent = document.getElementById('prodCorrespondent').value;
+            const message = document.getElementById('prodMessage').value;
+            const events = document.getElementById('prodEvents').value;
+
+            if (!title || !message) {
+                showError('prodError', 'Please fill in Title and Message');
+                return;
+            }
+
+            const output = document.getElementById('prodOutput');
+            const errorDiv = document.getElementById('prodError');
+            const successDiv = document.getElementById('prodSuccess');
+            
+            output.innerHTML = '<div class="loading"><span class="spinner"></span>Generating script...</div>';
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
+            const systemPrompt = `You are the editorial director for the Southern Cameroons Alliance (SCA). Generate a complete production script.
+
+CRITICAL RULES:
+1. Never use "Ambazonia" — use "Southern Cameroons"
+2. Use "Freedom Fighters" or "restorationists" (NOT "separatists")
+3. All claims must be verified or attributed
+4. Tone: dignified, resolute, hopeful
+
+Generate the script with these sections:
+- SYNOPSIS
+- DIALOGUE SCRIPT (with timecodes)
+- SHOT LIST
+- SCENE DESCRIPTIONS
+- IMAGE PROMPTS (for T2I)
+- VOICE SPECS (for TTS)
+- CONTINUITY NOTES
+- PRODUCTION CHECKLIST`;
+
+            const userMessage = `Title: ${title}
+Type: ${type}
+Duration: ${duration}
+Correspondent: ${correspondent}
+Key Message: ${message}
+Events: ${events}
+
+Generate a complete production script.`;
+
+            try {
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        systemPrompt,
+                        userMessage,
+                    }),
+                });
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.error || 'API Error');
+                }
+
+                const data = await response.json();
+                const text = data.content || '';
+                
+                output.innerHTML = `<div class="output-box">${text}</div>`;
+                output.dataset.title = title;
+                output.dataset.type = type;
+                document.getElementById('prodButtons').style.display = 'flex';
+                successDiv.textContent = '✓ Script generated successfully!';
+                successDiv.style.display = 'block';
+            } catch (err) {
+                showError('prodError', `Error: ${err.message}`);
+                output.innerHTML = '<div class="empty">Failed to generate</div>';
+            }
+        }
+
+        async function generateSocial() {
+            const topic = document.getElementById('socialTopic').value;
+            const message = document.getElementById('socialMessage').value;
+            const tone = document.getElementById('socialTone').value;
+            const cta = document.getElementById('socialCTA').value;
+
+            if (!topic || !message) {
+                showError('socialError', 'Please fill in Topic and Message');
+                return;
+            }
+
+            const output = document.getElementById('socialOutput');
+            const errorDiv = document.getElementById('socialError');
+            const successDiv = document.getElementById('socialSuccess');
+            
+            output.innerHTML = '<div class="loading"><span class="spinner"></span>Generating briefs...</div>';
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
+            const systemPrompt = `Create social media posts for Facebook (1:1), Instagram (9:16), and YouTube (16:9).
+
+RULES:
+- Never use "Ambazonia" — use "Southern Cameroons"
+- Use "Freedom Fighters" terminology
+- Keep language accessible (5th grade reading level)
+- Each platform needs custom image prompts
+
+Format output clearly with platform headers and image prompts.`;
+
+            const userMessage = `Topic: ${topic}
+Message: ${message}
+Tone: ${tone}
+Call to Action: ${cta}
+
+Create platform-specific social media posts with image prompts.`;
+
+            try {
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        systemPrompt,
+                        userMessage,
+                    }),
+                });
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.error || 'API Error');
+                }
+
+                const data = await response.json();
+                const text = data.content || '';
+                
+                output.innerHTML = `<div class="output-box">${text}</div>`;
+                output.dataset.topic = topic;
+                document.getElementById('socialButtons').style.display = 'flex';
+                successDiv.textContent = '✓ Briefs generated successfully!';
+                successDiv.style.display = 'block';
+            } catch (err) {
+                showError('socialError', `Error: ${err.message}`);
+                output.innerHTML = '<div class="empty">Failed to generate</div>';
+            }
+        }
+
+        function saveToLibrary(type) {
+            let title, content;
+            
+            if (type === 'production') {
+                const outputEl = document.getElementById('prodOutput');
+                title = document.getElementById('prodTitle').value || 'Untitled Script';
+                content = outputEl.querySelector('.output-box')?.innerText || '';
+            } else if (type === 'social') {
+                const outputEl = document.getElementById('socialOutput');
+                title = document.getElementById('socialTopic').value || 'Untitled Brief';
+                content = outputEl.querySelector('.output-box')?.innerText || '';
+            }
+
+            if (!content) {
+                alert('No content to save. Generate something first!');
+                return;
+            }
+
+            let library = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const item = {
+                id: Date.now(),
+                type,
+                title,
+                content,
+                created: new Date().toLocaleString()
+            };
+
+            library.unshift(item);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(library));
+            alert('✓ Saved to Library!');
+        }
+
+        function loadLibrary() {
+            const library = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const container = document.getElementById('libraryItems');
+            const countEl = document.getElementById('libraryCount');
+
+            if (library.length === 0) {
+                container.innerHTML = '<div class="empty">Your saved scripts and posts will appear here. Use the "Save to Library" button after generating content.</div>';
+                countEl.textContent = 'No items saved yet';
+                return;
+            }
+
+            countEl.textContent = `${library.length} item${library.length !== 1 ? 's' : ''} saved`;
+            container.innerHTML = library.map(item => `
+                <div class="library-item">
+                    <div class="library-item-header">
+                        <div style="flex: 1;">
+                            <div class="library-item-title">${item.title}</div>
+                            <div class="library-item-type">${item.type === 'production' ? '🎬 Script' : '📱 Social Brief'}</div>
+                        </div>
+                    </div>
+                    <div class="library-item-date">${item.created}</div>
+                    <div class="library-item-preview">${item.content.substring(0, 200)}...</div>
+                    <div class="library-item-actions">
+                        <button class="library-item-btn" onclick="viewLibraryItem(${item.id})">👁️ View</button>
+                        <button class="library-item-btn" onclick="copyLibraryItem(${item.id})">📋 Copy</button>
+                        <button class="library-item-btn" onclick="downloadLibraryItem(${item.id})">⬇️ Download</button>
+                        <button class="library-item-btn delete" onclick="deleteLibraryItem(${item.id})">🗑️ Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewLibraryItem(id) {
+            const library = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const item = library.find(i => i.id === id);
+            
+            if (item) {
+                const modal = window.open('', '_blank', 'width=800,height=600');
+                modal.document.write(`
+                    <html>
+                    <head>
+                        <title>${item.title}</title>
+                        <style>
+                            body { font-family: monospace; padding: 20px; background: #f0f0f0; }
+                            .content { background: white; padding: 20px; border-radius: 8px; white-space: pre-wrap; }
+                            h1 { color: #333; }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>${item.title}</h1>
+                        <p><small>${item.created}</small></p>
+                        <div class="content">${item.content}</div>
+                    </body>
+                    </html>
+                `);
+            }
+        }
+
+        function copyLibraryItem(id) {
+            const library = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const item = library.find(i => i.id === id);
+            
+            if (item) {
+                navigator.clipboard.writeText(item.content);
+                alert('✓ Copied to clipboard!');
+            }
+        }
+
+        function downloadLibraryItem(id) {
+            const library = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const item = library.find(i => i.id === id);
+            
+            if (item) {
+                const blob = new Blob([item.content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${item.title.replace(/\s+/g, '_')}.txt`;
+                a.click();
+            }
+        }
+
+        function deleteLibraryItem(id) {
+            if (confirm('Are you sure you want to delete this item?')) {
+                let library = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+                library = library.filter(i => i.id !== id);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(library));
+                loadLibrary();
+            }
+        }
+
+        function clearLibrary() {
+            if (confirm('⚠️ Are you sure? This will delete ALL saved items permanently.')) {
+                localStorage.removeItem(STORAGE_KEY);
+                loadLibrary();
+                alert('✓ Library cleared!');
+            }
+        }
+
+        function showError(elementId, message) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.style.display = 'block';
+        }
+
+        function copyOutput(elementId) {
+            const text = document.querySelector(`#${elementId} .output-box`)?.innerText || '';
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+
+        function downloadOutput(elementId, filename) {
+            const text = document.querySelector(`#${elementId} .output-box`)?.innerText || '';
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+        }
     </script>
 </body>
 </html>
